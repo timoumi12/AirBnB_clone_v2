@@ -1,3 +1,5 @@
+-- -- Create Database and grant permission to User
+
 CREATE DATABASE IF NOT EXIST hbnb_dev_db;
 
 GRANT USAGE ON * . *
