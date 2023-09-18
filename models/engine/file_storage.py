@@ -11,8 +11,8 @@ class FileStorage:
     def delete(self, obj=None):
         if obj is None:
             return
-        if obj in self.__objects:
-            self.__objects.remove(obj)
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        del self.__objects[key]
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
