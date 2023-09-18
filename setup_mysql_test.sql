@@ -1,8 +1,8 @@
 -- a script that prepares a MySQL server for the project
 
-CREATE DATABASE IF NOT EXIST hbnb_test_db;
+CREATE DATABASE IF NOT EXISTs hbnb_test_db;
 
-CREATE USER IF NOT EXIST 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
+CREATE USER IF NOT EXISTs 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
 
 GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_test'@'localhost'
 
