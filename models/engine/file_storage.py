@@ -9,10 +9,10 @@ class FileStorage:
     __objects = {}
 
     def delete(self, obj=None):
-        if obj is None:
-            return
-        key = "{}.{}".format(type(obj).__name__, obj.id)
-        del self.__objects[key]
+        try:
+            del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
+        except (AttributeError, KeyError):
+            pass
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
