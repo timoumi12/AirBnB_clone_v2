@@ -9,6 +9,7 @@ class FileStorage:
     __objects = {}
 
     def delete(self, obj=None):
+        """Delete an object"""
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
