@@ -41,6 +41,9 @@ class DBStorage:
             list = [BaseModel, User, Place, State, City, Amenity, Review]
             for classes in list:
                 query = self.__session.query(classes).all()
+                print()
+                print(query)
+                print()
                 for obj in query:
                     key = "{}.{}".format(classes, obj.id)
                     data[key] = obj
