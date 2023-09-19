@@ -35,17 +35,14 @@ class DBStorage:
                 cls = eval(cls)
             query = self.__session.query(cls).all()
             for obj in query:
-                key = "{}.{}".format(cls, obj.id)
+                key = "{}.{}".format(type(cls).__name__, obj.id)
                 data[key] = obj
         else:
-            list = [BaseModel, User, Place, State, City, Amenity, Review]
+            list = [User, Place, State, City, Amenity, Review]
             for classes in list:
                 query = self.__session.query(classes).all()
-                print()
-                print(query)
-                print()
                 for obj in query:
-                    key = "{}.{}".format(classes, obj.id)
+                    key = "{}.{}".format(type(classes).__name__, obj.id)
                     data[key] = obj
         return data
         
