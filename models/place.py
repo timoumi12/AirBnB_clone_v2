@@ -18,6 +18,8 @@ import models
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
+    amenities = relationship("Amenity", secondary='place_amenity',
+                             back_populates="place_amenities", viewonly=False)
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
@@ -40,8 +42,6 @@ class Place(BaseModel, Base):
             if rev.place_id == self.id:
                 list_reviews.append(rev)
             return rev
-    amenities = relationship("Amenity",
-                    secondary=place_amenity, viewonly=False)
     @property
     def amenities(self):
         """getter attribute"""
