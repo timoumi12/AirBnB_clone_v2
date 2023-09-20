@@ -1,23 +1,15 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, Float ,ForeignKey, Table
+from sqlalchemy import Column, Integer, String, Float ,ForeignKey
 from sqlalchemy.orm import relationship
-import models
+from models.user import User
+from models.city import City
 
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60), ForeignKey('places.id'),
-                             primary_key=True, nullable=False),
-                      Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'),
-                             primary_key=True, nullable=False)
-                      )
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
-    amenities = relationship("Amenity", secondary='place_amenity',
-                             back_populates="place_amenities", viewonly=False)
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
@@ -28,8 +20,8 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    amenity_ids = []
     reviews = relationship("Review", cascade="delete", backref="place")
-    amenity_ids =[]
 
     @property
     def reviews(self):
@@ -40,19 +32,3 @@ class Place(BaseModel, Base):
             if rev.place_id == self.id:
                 list_reviews.append(rev)
             return rev
-    @property
-    def amenities(self):
-        """getter attribute"""
-        list_obj = []
-        amen_objs = models.storage.all('Amenity')
-        for am in amen_objs.values():
-            if amenity.id in amenity_ids:
-                list_obj.append(amenity)
-            return list_obj
-
-    @amenities.setter
-    def amenitites(self, obj):
-        """setter attribute"""
-        if isinstance(obj, Amenity):
-            if self.id == obj.place_id:
-                self.amenity_ids.append(obj.id)
