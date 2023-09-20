@@ -131,8 +131,8 @@ class HBNBCommand(cmd.Cmd):
                 except(IndexError, ValueError):
                     pass
                 if type(key_value[1]) == str:
-                    key_value[1].replace('_', ' ')
-                    key_value[1].replace("\"", '\\\"')
+                    key_value[1] = key_value[1].replace('_', ' ')
+                    key_value[1] = key_value[1].replace("\"", '\\\"')
                 setattr(new_instance, key_value[0], key_value[1])
         storage.new(new_instance)
         storage.save()
