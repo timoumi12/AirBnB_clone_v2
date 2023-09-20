@@ -18,10 +18,8 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """ cities getter attribute """
-            cit_lis = []
-            all_cit = models.storage.all(City)
-            for city in all_cit.values():  # change .items() to values() as it
-                # returns an obj that contains values of a dictionary as a list
+            city_list = []
+            for city in list(models.storage.all(City).values()):
                 if city.state_id == self.id:
-                    cit_lis.append(city)
-            return cit_lis
+                    city_list.append(city)
+            return city_list

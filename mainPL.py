@@ -9,7 +9,7 @@ from models.state import State
 from models.user import User
 
 # creation of a State
-state = State(name="California")
+state = State.State(name="California")
 state.save()
 
 # creation of a City
@@ -46,4 +46,3 @@ place_2.amenities.append(amenity_3)
 storage.save()
 
 print("OK")
-
