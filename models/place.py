@@ -7,6 +7,13 @@ from models.user import User
 from models.city import City
 import models
 
+ place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False)
+                      )
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -33,10 +40,6 @@ class Place(BaseModel, Base):
             if rev.place_id == self.id:
                 list_reviews.append(rev)
             return rev
-    place_amenity = Table(Base.metadata,
-                          Column('place_id', ForeignKey('places.id'), primary_key=True),
-                          Column('amenity_id', ForeignKey('amenities.id'), primary_key=True)
-                         )
     amenities = relationship("Amenity",
                     secondary=place_amenity, viewonly=False)
     @property
