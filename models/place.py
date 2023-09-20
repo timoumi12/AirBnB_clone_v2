@@ -3,9 +3,8 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float ,ForeignKey, Table
 from sqlalchemy.orm import relationship
-from models.user import User
-from models.city import City
 import models
+
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey('places.id'),
                              primary_key=True, nullable=False),
@@ -29,8 +28,8 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
     reviews = relationship("Review", cascade="delete", backref="place")
+    amenity_ids =[]
 
     @property
     def reviews(self):
@@ -44,16 +43,16 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         """getter attribute"""
-        dict_amenities = models.storage.all(models.Amenity)
-        list_amenities = []
-        for obj in dict_amenities:
-            if obj.id in Place.amenity_ids:
-                list_amenities.append(obj)
-        return list_amenities
+        list_obj = []
+        amen_objs = models.storage.all('Amenity')
+        for am in amen_objs.values():
+            if amenity.id in amenity_ids:
+                list_obj.append(amenity)
+            return list_obj
 
     @amenities.setter
     def amenitites(self, obj):
         """setter attribute"""
-        dict_amenities = models.storage.all(models.Amenity)
-        if obj in  dict_amenities:
-            Place.amenity_ids.append(obj.id)
+        if isinstance(obj, Amenity):
+            if self.id == obj.place_id:
+                self.amenity_ids.append(obj.id)
