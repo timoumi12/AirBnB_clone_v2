@@ -33,3 +33,25 @@ class Place(BaseModel, Base):
             if rev.place_id == self.id:
                 list_reviews.append(rev)
             return rev
+    place_amenity = Table(Base.metadata,
+                          Column('place_id', ForeignKey('places.id'), primary_key=True),
+                          Column('amenity_id', ForeignKey('amenities.id'), primary_key=True)
+                         )
+    amenities = relationship("Amenity",
+                    secondary=place_amenity, viewonly=False)
+    @property
+    def amenities(self):
+        """getter attribute"""
+        dict_amenities = models.storage.all(models.Amenity)
+        list_amenities = []
+        for obj in dict_amenities:
+            if obj.id in amenity_ids:
+                list_amenities.append(obj)
+        return list_amenities
+
+    @amenities.setter
+    def amenitites(self, obj):
+        """setter attribute"""
+         dict_amenities = models.storage.all(models.Amenity)
+        if obj in  dict_amenities:
+            amenity_ids.append(obj.id)
