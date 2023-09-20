@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, Float ,ForeignKey
+from sqlalchemy import Column, Integer, String, Float ,ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.user import User
 from models.city import City
@@ -45,13 +45,13 @@ class Place(BaseModel, Base):
         dict_amenities = models.storage.all(models.Amenity)
         list_amenities = []
         for obj in dict_amenities:
-            if obj.id in amenity_ids:
+            if obj.id in Place.amenity_ids:
                 list_amenities.append(obj)
         return list_amenities
 
     @amenities.setter
     def amenitites(self, obj):
         """setter attribute"""
-         dict_amenities = models.storage.all(models.Amenity)
+        dict_amenities = models.storage.all(models.Amenity)
         if obj in  dict_amenities:
-            amenity_ids.append(obj.id)
+            Place.amenity_ids.append(obj.id)
