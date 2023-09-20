@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, Float ,ForeignKey
 from sqlalchemy.orm import relationship
 from models.user import User
 from models.city import City
+import models
 
 
 class Place(BaseModel, Base):
