@@ -120,6 +120,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError
             arg_list = args.split(" ")
             new_instance = HBNBCommand.classes[arg_list[0]]()
+            print(arg_list[0])
             for arg in arg_list[1:]:
                 key_value = arg.split("=")
                 if hasattr(new_instance, key_value[0]):
