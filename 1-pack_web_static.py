@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def do_pack():
-    '''a .tgz archive from the contents of the web_static folder of your repo'''
+    '''a .tgz archive from the web_static folder of your repo'''
 
     _date = datetime.now()
     date = _date.strftime("%Y%m%d%H%M%S")
