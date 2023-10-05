@@ -3,7 +3,7 @@ from fabric.api import env, put, run, local
 from os.path import exists, basename, splitext
 from datetime import datetime
 # full deploy
-env.hosts = ['100.25.188.65', '34.204.61.68']
+env.hosts = ['52.86.164.135', '100.25.0.108']
 
 
 def do_pack():
