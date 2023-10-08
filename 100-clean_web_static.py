@@ -8,7 +8,7 @@ env.user = 'ubuntu'
 
 
 def do_clean(number=0):
-    # deletes out-of-date archives
+    '''deletes out-of-date archives'''
 
     number = int(number)
     if number == 0 or number == 1:
