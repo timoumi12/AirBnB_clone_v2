@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.review import Review
 import os
 
+
 class DBStorage:
     """this file manages DBstorage"""
 
@@ -26,7 +27,7 @@ class DBStorage:
             os.getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
-            
+
     def all(self, cls=None):
         """add method"""
         data = {}
@@ -45,18 +46,21 @@ class DBStorage:
                     key = "{}.{}".format(type(classes).__name__, obj.id)
                     data[key] = obj
         return data
-        
+
     def new(self, obj):
         """new method"""
         self.__session.add(obj)
+
     def save(self):
         """save method"""
         self.__session.commit()
+
     def delete(self, obj=None):
         """delete method"""
         if obj:
             self.__session.delete(obj)
-    def reload(self): 
+
+    def reload(self):
         """reload method"""
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
