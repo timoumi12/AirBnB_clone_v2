@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" 3. Start a Flask web application with 4 views function"""
 from flask import Flask, render_template
 
 
