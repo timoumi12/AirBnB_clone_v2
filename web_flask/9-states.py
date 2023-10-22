@@ -9,14 +9,14 @@ app.url_map.strict_slashes = False
 
 
 @app.route("/states")
-def cities_by_states():
+def states():
     states = storage.all("State")
     return render_template("9-states.html",
-                           states=states)
+                           state=states)
 
 
 @app.route("/states/<id>")
-def cities_by_states(id):
+def state_by_id(id):
     states = storage.all("State")
     for state in states:
         if state.id == id:
