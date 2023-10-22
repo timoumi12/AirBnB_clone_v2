@@ -10,13 +10,14 @@ app.url_map.strict_slashes = False
 
 @app.route("/states_list")
 def states_list():
+    """display states list"""
     states = storage.all("State")
-    return render_template("7-states_list.html",
-                           states=states)
+    return render_template("7-states_list.html", states=states)
 
 
 @app.teardown_appcontext
 def teardown(exc):
+    """After each request you must remove the current SQLAlchemy Session."""
     storage.close()
 
 
