@@ -1,32 +1,33 @@
 #!/usr/bin/python3
 """ a script that starts a Flask web application"""
-from flask import Flask, render_template
+
+
+from flask import Flask
+from flask import render_template
 from models import storage
 
-
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route("/states")
-def states():
+@app.route('/states', strict_slashes=False)
+def states_list():
+    """display states list"""
     states = storage.all("State")
-    return render_template("9-states.html",
-                           state=states)
+    return render_template("7-states_list.html", states=states)
 
 
-@app.route("/states/<id>")
+@app.route('/states/<id>', strict_slashes=False)
 def state_by_id(id):
-    states = storage.all("State")
-    for state in states:
+    """display the cities of a state"""
+    for state in storage.all("State").values():
         if state.id == id:
-            render_template("9-states.html",
-                            state=state)
-    render_template("9-states.html")
+            return render_template("9-states.html", state=state)
+    return render_template("9-states.html")
 
 
 @app.teardown_appcontext
-def teardown(exc):
+def teardown(exception):
+    """After each request you must remove the current SQLAlchemy Session."""
     storage.close()
 
 
